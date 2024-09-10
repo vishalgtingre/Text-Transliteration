@@ -15,7 +15,14 @@ _, (source_vocab_to_int, target_vocab_to_int), (source_int_to_vocab, target_int_
 
 load_path = load_params()
 
+print("Start")
+tf.compat.v1.disable_eager_execution()
+tf.optimizers.SGD (learning_rate=0.001, lr_decay=0.0, decay_step=100, staircase=False, use_locking=False, name='SGD')
+hello = tf.constant('Hello, TensorFlow!')
 
+sess = tf.compat.v1.Session()
+
+print(sess.run(hello))
 
 batch_size = 30
 
@@ -40,7 +47,8 @@ transliterate_word = word_to_seq(transliterate_word, source_vocab_to_int)
 loaded_graph = tf.Graph()
 
 #initialising the session
-with tf.Session(graph=loaded_graph) as sess:
+
+with tf.compat.v1.Session(graph=loaded_graph) as sess:
         
     # Load saved model
     loader = tf.train.import_meta_graph(load_path + '.meta')
